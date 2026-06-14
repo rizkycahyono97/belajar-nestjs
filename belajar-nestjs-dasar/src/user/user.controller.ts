@@ -19,7 +19,7 @@ import { Connection } from './connection/connection';
 import { MailService } from './mail/mail.service';
 import { UserRepository } from './user-repository/user-repository';
 import { MemberService } from './member/member.service';
-import { User } from 'src/generated/client';
+import { User } from '../../generated/prisma/client';
 
 @Controller('/api/users')
 export class UserController {
