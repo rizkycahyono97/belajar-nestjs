@@ -1,0 +1,41 @@
+import { Test, TestingModule } from '@nestjs/testing';
+import { INestApplication } from '@nestjs/common';
+import request from 'supertest';
+import { App } from 'supertest/types';
+import { AppModule } from './../src/app.module';
+import { describe, afterEach, it, beforeEach, expect } from '@jest/globals';
+
+describe('AppController (e2e)', () => {
+  let app: INestApplication<App>;
+
+  beforeEach(async () => {
+    const moduleFixture: TestingModule = await Test.createTestingModule({
+      imports: [AppModule],
+    }).compile();
+
+    app = moduleFixture.createNestApplication();
+    await app.init();
+  });
+
+  it('/ (GET)', () => {
+    return request(app.getHttpServer())
+      .get('/')
+      .expect(200)
+      .expect('Hello World!');
+  });
+
+  it('should can say hello', () => {
+    return request(app.getHttpServer())
+      .get('/api/users/hello')
+      .query({
+        first_name: 'Rizky',
+        last_name: 'Cahyono',
+      })
+      .expect(200)
+      .expect('HAI Rizky Cahyono');
+  });
+
+  afterEach(async () => {
+    await app.close();
+  });
+});
