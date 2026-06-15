@@ -1,12 +1,7 @@
 import { Module } from '@nestjs/common';
 import { UserController } from './user.controller';
 import { UserService } from './user.service';
-import {
-  Connection,
-  createConnection,
-  MongoDBConnection,
-  MySQLConnection,
-} from './connection/connection';
+import { Connection, createConnection } from './connection/connection';
 import { mailService, MailService } from './mail/mail.service';
 import { UserRepository } from './user-repository/user-repository';
 import { MemberService } from './member/member.service';
@@ -14,7 +9,7 @@ import { ConfigService } from '@nestjs/config';
 import { PrismaModule } from 'src/prisma/prisma.module';
 
 @Module({
-  imports: [PrismaModule],
+  // imports: [PrismaModule],
   controllers: [UserController],
   providers: [
     UserService, // standard provider
