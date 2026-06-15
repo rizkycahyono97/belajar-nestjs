@@ -11,6 +11,8 @@ import {
   Req,
   Inject,
   Body,
+  UseFilters,
+  HttpException,
 } from '@nestjs/common';
 import type { HttpRedirectResponse } from '@nestjs/common';
 import type { Request, Response } from 'express';
@@ -20,6 +22,7 @@ import { MailService } from './mail/mail.service';
 import { UserRepository } from './user-repository/user-repository';
 import { MemberService } from './member/member.service';
 import { User } from '../../generated/prisma/client';
+import { ValidationFilter } from 'src/validation/validation.filter';
 
 @Controller('/api/users')
 export class UserController {
@@ -50,10 +53,21 @@ export class UserController {
     @Body('first_name') firstName: string,
     @Body('last_name') lastName: string,
   ): Promise<User> {
+    if (!firstName) {
+      throw new HttpException(
+        {
+          code: 400,
+          errors: 'first_name is required',
+        },
+        400,
+      );
+    }
+
     return this.userRepository.save(firstName, lastName);
   }
 
   @Get('/hello')
+  // @UseFilters(ValidationFilter)
   sayHello(@Query('name') name: string): string {
     return this.service.sayHello(name);
   }
