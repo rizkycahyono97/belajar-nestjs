@@ -18,3 +18,7 @@ Content-Type: application/json
     "username": "adadader",
     "password": "adadader"
 }
+
+### custom decorator
+GET {{baseUrl}}{{userPrefix}}/current
+x-username: 1
