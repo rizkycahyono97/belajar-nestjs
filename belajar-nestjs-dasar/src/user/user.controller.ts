@@ -13,6 +13,8 @@ import {
   Body,
   UseFilters,
   HttpException,
+  ParseIntPipe,
+  UsePipes,
 } from '@nestjs/common';
 import type { HttpRedirectResponse } from '@nestjs/common';
 import type { Request, Response } from 'express';
@@ -23,6 +25,11 @@ import { UserRepository } from './user-repository/user-repository';
 import { MemberService } from './member/member.service';
 import { User } from '../../generated/prisma/client';
 import { ValidationFilter } from 'src/validation/validation.filter';
+import {
+  LoginUserRequest,
+  loginUserRequestValidation,
+} from 'src/model/login.model';
+import { ValidationPipe } from 'src/validation/validation.pipe';
 
 @Controller('/api/users')
 export class UserController {
@@ -36,6 +43,13 @@ export class UserController {
   ) {}
   // @Inject()
   // private userService: UserService;
+
+  @UsePipes(new ValidationPipe(loginUserRequestValidation))
+  @UseFilters(ValidationFilter)
+  @Post('/login')
+  login(@Query('name') name: string, @Body() request: LoginUserRequest) {
+    return `hello ${request.username} ${request.password}`;
+  }
 
   @Get('/connection')
   sayConnection(): any {
@@ -122,7 +136,8 @@ export class UserController {
   }
 
   @Get('/:id')
-  getUserById(@Param('id') id: string): string {
+  getUserById(@Param('id', ParseIntPipe) id: number): string {
+    console.info(id * 10);
     return `HAI REQ PARAMS ${id}`;
   }
 }

@@ -1,0 +1,20 @@
+@baseUrl = http://localhost:8000
+@userPrefix = /api/users
+
+### create user
+POST {{baseUrl}}{{userPrefix}}/create
+Content-Type: application/json
+
+{
+    // "first_name": "Aba"
+    "last_name": "Coda"
+}
+
+### test zod custom pipe 
+POST {{baseUrl}}{{userPrefix}}/login?name=rizky
+Content-Type: application/json
+
+{
+    "username": "adadader",
+    "password": "adadader"
+}
