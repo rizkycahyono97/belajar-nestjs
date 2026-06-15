@@ -16,6 +16,7 @@ import {
   ParseIntPipe,
   UsePipes,
   UseInterceptors,
+  UseGuards,
 } from '@nestjs/common';
 import type { HttpRedirectResponse } from '@nestjs/common';
 import type { Request, Response } from 'express';
@@ -33,6 +34,7 @@ import {
 import { ValidationPipe } from 'src/validation/validation.pipe';
 import { TimeInterceptor } from 'src/time/time.interceptor';
 import { Auth } from 'src/auth/auth.decorator';
+import { RoleGuard } from 'src/role/role.guard';
 
 @Controller('/api/users')
 export class UserController {
@@ -48,6 +50,7 @@ export class UserController {
   // private userService: UserService;
 
   @Get('/current')
+  @UseGuards(new RoleGuard(['admin', 'operator']))
   current(@Auth() user: User): Record<string, any> {
     return {
       data: `Hello ${user.first_name} ${user.last_name}`,
