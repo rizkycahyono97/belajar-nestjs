@@ -1,4 +1,8 @@
-import { LoginUserRequest, RegisterUserRequest } from 'src/model/user.model';
+import {
+  LoginUserRequest,
+  RegisterUserRequest,
+  UpdateUserRequest,
+} from 'src/model/user.model';
 import { z, ZodType } from 'zod';
 
 export class UserValidation {
@@ -11,5 +15,10 @@ export class UserValidation {
   static readonly LOGIN: ZodType<LoginUserRequest> = z.object({
     username: z.string().min(1).max(100),
     password: z.string().min(1).max(100),
+  });
+
+  static readonly UPDATE: ZodType<UpdateUserRequest> = z.object({
+    name: z.string().min(1).max(100).optional(),
+    password: z.string().min(1).max(100).optional(),
   });
 }
