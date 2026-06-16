@@ -1,20 +1,9 @@
 import { Global, Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
-import { WinstonModule } from 'nest-winston';
-import * as winston from 'winston';
+import { CommonModule } from './common/common.module';
 
 @Global()
 @Module({
-  imports: [
-    WinstonModule.forRoot({
-      format: winston.format.json(),
-      transports: [new winston.transports.Console()],
-    }),
-    //configModule = untuk mengambil seperti .env
-    ConfigModule.forRoot({
-      isGlobal: true,
-    }),
-  ],
+  imports: [CommonModule],
   controllers: [],
   providers: [],
 })

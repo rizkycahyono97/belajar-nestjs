@@ -2,13 +2,22 @@ import { Inject, OnModuleInit } from '@nestjs/common';
 import { PrismaClient } from 'generated/prisma/client';
 import { WINSTON_MODULE_PROVIDER } from 'nest-winston';
 import { Logger } from 'winston';
+import { PrismaMariaDb } from '@prisma/adapter-mariadb';
 
 export class PrismaService extends PrismaClient implements OnModuleInit {
   constructor(
     @Inject(WINSTON_MODULE_PROVIDER) private readonly logger: Logger,
   ) {
+    const adapter = new PrismaMariaDb({
+      host: process.env.DATABASE_HOST || '',
+      user: process.env.DATABASE_USER || '',
+      password: process.env.DATABASE_PASSWORD || '',
+      database: process.env.DATABASE_NAME || '',
+      connectionLimit: 5,
+    });
+
     super({
-      accelerateUrl: process.env.PRISMA_ACCELERATE_URL ?? '',
+      adapter,
       log: [
         {
           emit: 'event',
