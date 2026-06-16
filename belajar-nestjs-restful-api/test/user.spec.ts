@@ -126,6 +126,36 @@ describe('User Controller', () => {
     });
   });
 
+  describe('GET /api/users/current', () => {
+    beforeEach(async () => {
+      await testService.deleteAll();
+      await testService.createUser();
+    });
+
+    it('should be rejected if token invalid', async () => {
+      const response = await request(app.getHttpServer())
+        .get('/api/users/current')
+        .set('Authrization', 'wrong');
+
+      logger.info(response.body);
+
+      expect(response.status).toBe(401);
+      expect(response.body.errors).toBeDefined();
+    });
+
+    it('should be able to get user', async () => {
+      const response = await request(app.getHttpServer())
+        .get('/api/users/current')
+        .set('Authorization', 'test');
+
+      logger.info(response.body);
+
+      expect(response.status).toBe(200);
+      expect(response.body.data.username).toBe('test');
+      expect(response.body.data.name).toBe('test');
+    });
+  });
+
   afterAll(async () => {
     if (app) {
       const prismaService = app.get(PrismaService);
