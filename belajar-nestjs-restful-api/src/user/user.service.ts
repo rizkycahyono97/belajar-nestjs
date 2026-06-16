@@ -11,7 +11,7 @@ import {
 import { Logger } from 'winston';
 import { UserValidation } from './user.validation';
 import * as bcrypt from 'bcrypt';
-import { v4 as uuid, v4 } from 'uuid';
+import { v4 as uuid } from 'uuid';
 import { User } from 'generated/prisma/client';
 
 @Injectable()
