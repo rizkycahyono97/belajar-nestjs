@@ -37,6 +37,7 @@ describe('User Controller', () => {
 
   describe('POST /api/users/register', () => {
     beforeEach(async () => {
+      await testService.deleteContact();
       await testService.deleteUser();
     });
 
@@ -49,7 +50,7 @@ describe('User Controller', () => {
           name: '',
         });
 
-      logger.info(response.body);
+      // logger.info(response.body);
 
       expect(response.status).toBe(400);
       expect(response.body.errors).toBeDefined();
@@ -64,7 +65,7 @@ describe('User Controller', () => {
           name: 'test',
         });
 
-      logger.info(response.body);
+      // logger.info(response.body);
 
       expect(response.status).toBe(200);
       expect(response.body.data.username).toBe('test');
@@ -82,7 +83,7 @@ describe('User Controller', () => {
           name: 'test',
         });
 
-      logger.info(response.body);
+      // logger.info(response.body);
 
       expect(response.status).toBe(400);
       expect(response.body.errors).toBeDefined();
@@ -103,7 +104,7 @@ describe('User Controller', () => {
           password: '',
         });
 
-      logger.info(response.body);
+      // logger.info(response.body);
 
       expect(response.status).toBe(400);
       expect(response.body.errors).toBeDefined();
@@ -117,7 +118,7 @@ describe('User Controller', () => {
           password: 'test',
         });
 
-      logger.info(response.body);
+      // logger.info(response.body);
 
       expect(response.status).toBe(200);
       expect(response.body.data.username).toBe('test');
@@ -137,7 +138,7 @@ describe('User Controller', () => {
         .get('/api/users/current')
         .set('Authrization', 'wrong');
 
-      logger.info(response.body);
+      // logger.info(response.body);
 
       expect(response.status).toBe(401);
       expect(response.body.errors).toBeDefined();
@@ -148,7 +149,7 @@ describe('User Controller', () => {
         .get('/api/users/current')
         .set('Authorization', 'test');
 
-      logger.info(response.body);
+      // logger.info(response.body);
 
       expect(response.status).toBe(200);
       expect(response.body.data.username).toBe('test');
@@ -171,7 +172,7 @@ describe('User Controller', () => {
           name: '',
         });
 
-      logger.info(response.body);
+      // logger.info(response.body);
 
       expect(response.status).toBe(400);
       expect(response.body.errors).toBeDefined();
@@ -185,7 +186,7 @@ describe('User Controller', () => {
           name: 'test updated',
         });
 
-      logger.info(response.body);
+      // logger.info(response.body);
 
       expect(response.status).toBe(200);
       expect(response.body.data.username).toBe('test');
@@ -200,7 +201,7 @@ describe('User Controller', () => {
           password: 'updated',
         });
 
-      logger.info(response.body);
+      // logger.info(response.body);
 
       expect(response.status).toBe(200);
       expect(response.body.data.username).toBe('test');
@@ -213,7 +214,7 @@ describe('User Controller', () => {
           password: 'updated',
         });
 
-      logger.info(response.body);
+      // logger.info(response.body);
 
       expect(response.status).toBe(200);
       expect(response.body.data.token).toBeDefined();
@@ -231,7 +232,7 @@ describe('User Controller', () => {
         .delete('/api/users/current')
         .set('Authorization', 'wrong');
 
-      logger.info(response.body);
+      // logger.info(response.body);
 
       expect(response.status).toBe(401);
       expect(response.body.errors).toBeDefined();
@@ -242,7 +243,7 @@ describe('User Controller', () => {
         .delete('/api/users/current')
         .set('Authorization', 'test');
 
-      logger.info(response.body);
+      // logger.info(response.body);
 
       expect(response.status).toBe(200);
       expect(response.body.data).toBe(true);
