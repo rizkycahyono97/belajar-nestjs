@@ -4,7 +4,11 @@ import { WINSTON_MODULE_PROVIDER } from 'nest-winston';
 import { Logger } from 'winston';
 import { PrismaService } from 'src/common/prisma.service';
 import { Contact, User } from 'generated/prisma/client';
-import { ContactResponse, CreateContactRequest } from 'src/model/contact.model';
+import {
+  ContactResponse,
+  CreateContactRequest,
+  UpdateContactRequest,
+} from 'src/model/contact.model';
 import { ContactValidation } from './contact.validation';
 
 @Injectable()
@@ -43,6 +47,35 @@ export class ContactService {
       user.username,
       contactId,
     );
+
+    return this.toContactResponse(contact);
+  }
+
+  async update(
+    user: User,
+    request: UpdateContactRequest,
+  ): Promise<ContactResponse> {
+    this.logger.debug(
+      `ContactService.update(${JSON.stringify(user)}, ${JSON.stringify(request)})`,
+    );
+
+    const contactReq = this.validationService.validate(
+      ContactValidation.UPDATE,
+      request,
+    );
+
+    let contact: Contact = await this.checkContactMustExists(
+      user.username,
+      contactReq.id,
+    );
+
+    contact = await this.prismaService.contact.update({
+      where: {
+        id: contact.id,
+        username: user.username,
+      },
+      data: contactReq,
+    });
 
     return this.toContactResponse(contact);
   }
