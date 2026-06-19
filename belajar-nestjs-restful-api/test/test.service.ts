@@ -29,7 +29,7 @@ export class TestService {
     });
   }
 
-  async getUser(): Promise<User> {
+  async getUser(): Promise<User | null> {
     return this.prismaService.user.findUnique({
       where: {
         username: 'test',
@@ -48,7 +48,7 @@ export class TestService {
     });
   }
 
-  async getContact(): Promise<Contact> {
+  async getContact(): Promise<Contact | null> {
     return this.prismaService.contact.findFirst({
       where: {
         username: 'test',
