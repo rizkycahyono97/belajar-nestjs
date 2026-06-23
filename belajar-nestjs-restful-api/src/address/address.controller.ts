@@ -93,4 +93,17 @@ export class AddressController {
       data: true,
     };
   }
+
+  @Get()
+  @HttpCode(200)
+  async list(
+    @Auth() user: User,
+    @Param('contactId', ParseIntPipe) contactId: number,
+  ): Promise<WebResponse<AddressReponse[]>> {
+    const result = await this.addressService.list(user, contactId);
+
+    return {
+      data: result,
+    };
+  }
 }

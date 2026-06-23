@@ -129,6 +129,20 @@ export class AddressService {
     return true;
   }
 
+  async list(user: User, contactId: number): Promise<AddressReponse[]> {
+    this.logger.debug(`AddressService.delete(${JSON.stringify(contactId)})`);
+
+    await this.contactService.checkContactMustExists(user.username, contactId);
+
+    const addresses = await this.prismaService.address.findMany({
+      where: {
+        contact_id: contactId,
+      },
+    });
+
+    return addresses.map((address) => this.toAddressResponse(address));
+  }
+
   async checkAddressMustExist(
     contactId: number,
     addressId: number,
