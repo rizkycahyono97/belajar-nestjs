@@ -1,0 +1,128 @@
+@baseUrl = http://localhost:3000/api
+
+POST {{baseUrl}}users
+Content-Type: application/json
+Accept: application/json
+
+{
+  "username" : "khannedy",
+  "name" : "Eko Khannedy",
+  "password" : "rahasia"
+}
+
+### Login
+
+POST {{baseUrl}}users/login
+Content-Type: application/json
+Accept: application/json
+
+{
+  "username" : "khannedy",
+  "password" : "rahasia12345"
+}
+
+### Get User
+GET {{baseUrl}}users/current
+Accept: application/json
+Authorization: f5fc1bb9-a979-4f95-9173-8d42d0ac8d52
+
+### Logout User
+DELETE {{baseUrl}}users/current
+Accept: application/json
+Authorization: 11c4957d-6028-4b9f-895b-8232782a10a9
+
+### Update User
+PATCH {{baseUrl}}users/current
+Accept: application/json
+Content-Type: application/json
+Authorization: f5fc1bb9-a979-4f95-9173-8d42d0ac8d52
+
+{
+  "password" : "rahasia12345"
+}
+
+### Create contact
+POST {{baseUrl}}contacts
+Content-Type: application/json
+Accept: application/json
+Authorization: f5fc1bb9-a979-4f95-9173-8d42d0ac8d52
+
+{
+  "first_name" : "Joko",
+  "last_name" : "Morro",
+  "email" : "joko@example.com",
+  "phone" : "089999999"
+}
+
+### Update contact
+PUT {{baseUrl}}contacts/332
+Content-Type: application/json
+Accept: application/json
+Authorization: f5fc1bb9-a979-4f95-9173-8d42d0ac8d52
+
+{
+  "first_name" : "Budi",
+  "last_name" : "Morro",
+  "email" : "budi@example.com",
+  "phone" : "089999999"
+}
+
+
+### Get contact
+GET {{baseUrl}}contacts/332
+Accept: application/json
+Authorization: f5fc1bb9-a979-4f95-9173-8d42d0ac8d52
+
+### Delete contact
+DELETE {{baseUrl}}contacts/333
+Accept: application/json
+Authorization: f5fc1bb9-a979-4f95-9173-8d42d0ac8d52
+
+### Search contact
+GET {{baseUrl}}contacts
+Accept: application/json
+Authorization: f5fc1bb9-a979-4f95-9173-8d42d0ac8d52
+
+### Create Address
+POST {{baseUrl}}contacts/332/addresses
+Content-Type: application/json
+Accept: application/json
+Authorization: f5fc1bb9-a979-4f95-9173-8d42d0ac8d52
+
+{
+  "street" : "jalan contoh",
+  "city" : "kota contoh",
+  "province" : "provinsi contoh",
+  "country" : "negara contoh",
+  "postal_code" : "23434"
+}
+
+### Get Address
+GET {{baseUrl}}contacts/332/addresses/171
+Accept: application/json
+Authorization: f5fc1bb9-a979-4f95-9173-8d42d0ac8d52
+
+### List Address
+GET {{baseUrl}}contacts/332/addresses
+Accept: application/json
+Authorization: f5fc1bb9-a979-4f95-9173-8d42d0ac8d52
+
+### Update Address
+PUT {{baseUrl}}contacts/332/addresses/171
+Content-Type: application/json
+Accept: application/json
+Authorization: f5fc1bb9-a979-4f95-9173-8d42d0ac8d52
+
+{
+  "street" : "jalan contoh updated",
+  "city" : "kota contoh updated",
+  "province" : "provinsi contoh",
+  "country" : "negara contoh",
+  "postal_code" : "23434"
+}
+
+### Remove Address
+DELETE {{baseUrl}}contacts/332/addresses/172
+Accept: application/json
+Authorization: f5fc1bb9-a979-4f95-9173-8d42d0ac8d52
+
