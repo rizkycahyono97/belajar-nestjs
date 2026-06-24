@@ -20,7 +20,7 @@ import {
 } from 'src/model/address.model';
 import { WebResponse } from 'src/model/web.model';
 
-@Controller('/api/contacts/:contactId/address')
+@Controller('/api/contacts/:contactId/addresses')
 export class AddressController {
   constructor(private addressService: AddressService) {}
 
